@@ -346,14 +346,21 @@ strong {
   position: absolute;
   z-index: 4;
   left: 50%;
-  bottom: 10vh;
-  width: min(900px, calc(100% - 40px));
+  bottom: clamp(28px, 8vh, 92px);
+  width: min(980px, calc(100% - 32px));
   margin: 0;
+  padding: clamp(14px, 2.2vw, 24px) clamp(16px, 3vw, 34px);
   color: var(--text);
   font-family: "Noto Serif SC", serif;
-  font-size: clamp(1.2rem, 2vw, 2.1rem);
-  line-height: 1.7;
+  font-size: clamp(1.02rem, 1.55vw, 1.62rem);
+  line-height: 1.62;
   text-align: center;
+  background: linear-gradient(180deg, rgba(8, 12, 24, 0.16), rgba(8, 12, 24, 0.82));
+  border-top: 1px solid rgba(201, 168, 76, 0.24);
+}
+
+.stage-text-lines span {
+  display: block;
 }
 
 .erasure-scene {
@@ -797,8 +804,9 @@ footer {
   }
 
   .stage-text {
-    bottom: 7vh;
-    text-align: left;
+    bottom: 5vh;
+    width: min(92vw, 520px);
+    text-align: center;
   }
 
   .word-transfer {

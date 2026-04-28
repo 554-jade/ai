@@ -52,14 +52,27 @@ const pageSource = `${html}\n${css}\n${js}`;
   '最终，只有一个人的名字留了下来。',
   '1271年，忽必烈同时召见了他们。',
   '两套宇宙观，在同一个宫廷里相遇。',
-  '扎马鲁丁带来了七件仪器',
   '大元授时历经',
   '郭守敬　撰',
   '知识的生产是共同的。知识的署名权，由权力决定。',
   'الجبر',
   '今天，还有谁的名字正在消失？',
-  '这个网页由AI生成。AI的训练数据，80%以上是英文。',
 ].forEach((needle) => assertIncludes(html, needle, 'required content'));
+
+assertIncludes(html, 'stage-text-lines', 'split Stage C text lines');
+[
+  '扎马鲁丁带来了七件仪器，带来了更精确的计算方法。',
+  '郭守敬学习了，吸收了，',
+  '然后超越了。',
+].forEach((needle) => assertIncludes(html, needle, 'Stage C text line'));
+
+if (html.includes('<p class="stage-text reveal">扎马鲁丁带来了七件仪器，带来了更精确的计算方法。郭守敬学习了，吸收了，然后超越了。</p>')) {
+  throw new Error('Stage C text is still a single oversized paragraph');
+}
+
+if (html.includes('这个网页由AI生成。AI的训练数据，80%以上是英文。')) {
+  throw new Error('Removed footer text is still present');
+}
 
 [
   '简仪',
@@ -69,10 +82,17 @@ const pageSource = `${html}\n${css}\n${js}`;
   '浑天仪',
   '方位仪',
   '纪限仪',
+].forEach((needle) => assertIncludes(html, needle, 'instrument name'));
+
+[
   '苦来亦儿撒麻',
   '苦来亦阿儿子',
   '鲁哈麻亦渺凹只',
-].forEach((needle) => assertIncludes(html, needle, 'instrument name'));
+].forEach((needle) => {
+  if (html.includes(needle)) {
+    throw new Error(`Removed instrument name is still present: ${needle}`);
+  }
+});
 
 assertRegex(html, /class="[^"]*img-placeholder[^"]*"[^>]*data-src="assets\//, 'image placeholders with data-src');
 const assetRefs = [...html.matchAll(/data-src="([^"]+)"/g)].map((match) => match[1]);
