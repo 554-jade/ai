@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260429-3">
   </head>
   <body>
     <main>
@@ -20,11 +20,11 @@
           <p class="hero-line">他们用不同的语言，不同的仪器，观察同一片天空。</p>
           <p class="hero-line gold">最终，只有一个人的名字留了下来。</p>
         </div>
-        <div class="scroll-indicator" aria-hidden="true"></div>
+        <a class="next-cue scroll-indicator" href="#stage-a" aria-label="下一页"></a>
       </section>
 
       <section class="scene scene-two" aria-label="两位天文学家">
-        <article class="scroll-stage stage-a">
+        <article class="scroll-stage stage-a" id="stage-a">
           <div class="figure-panel figure-left">
             <div class="img-placeholder figure-img" data-src="assets/guo-back.jpg"></div>
           </div>
@@ -32,9 +32,10 @@
             <div class="img-placeholder figure-img" data-src="assets/jamal-back.jpg"></div>
           </div>
           <h2 class="center-title reveal">1271年，忽必烈同时召见了他们。</h2>
+          <a class="next-cue" href="#stage-b" aria-label="下一页"></a>
         </article>
 
-        <article class="scroll-stage stage-b">
+        <article class="scroll-stage stage-b" id="stage-b">
           <div class="figure-panel portrait-left">
             <div class="img-placeholder figure-img back" data-src="assets/guo-back.jpg"></div>
             <div class="img-placeholder figure-img front" data-src="assets/guo-portrait.jpg"></div>
@@ -55,9 +56,10 @@
             </div>
           </div>
           <h2 class="center-title reveal">两套宇宙观，在同一个宫廷里相遇。</h2>
+          <a class="next-cue" href="#stage-c" aria-label="下一页"></a>
         </article>
 
-        <article class="scroll-stage stage-c">
+        <article class="scroll-stage stage-c" id="stage-c">
           <div class="instrument-only left-cluster">
             <span>简仪</span>
             <span>圭表</span>
@@ -78,10 +80,11 @@
             <span>郭守敬学习了，吸收了，</span>
             <span>然后超越了。</span>
           </p>
+          <a class="next-cue" href="#erasure" aria-label="下一页"></a>
         </article>
       </section>
 
-      <section class="scene erasure-scene" aria-label="消失">
+      <section class="scene erasure-scene" id="erasure" aria-label="消失">
         <div class="img-placeholder erasure-calendar" data-src="assets/shoushi-calendar.jpg"></div>
         <div class="erasure-copy">
           <p class="classic-title"><span>大元授时历经</span></p>
@@ -93,9 +96,10 @@
             <p>只是，消失了。</p>
           </div>
         </div>
+        <a class="next-cue" href="#why" aria-label="下一页"></a>
       </section>
 
-      <section class="scene why-scene" aria-label="为什么">
+      <section class="scene why-scene" id="why" aria-label="为什么">
         <div class="img-placeholder why-bg" data-src="assets/kublai-portrait.jpg"></div>
         <div class="why-copy">
           <p class="why-line reveal">蒙古人征服了中原。</p>
@@ -104,9 +108,10 @@
           <p class="why-line reveal">伊斯兰天文学必须消失，因为它的存在威胁到这个妥协。</p>
           <p class="why-final reveal gold">知识的生产是共同的。知识的署名权，由权力决定。</p>
         </div>
+        <a class="next-cue" href="#algebra" aria-label="下一页"></a>
       </section>
 
-      <section class="scene card-scene" aria-label="代数">
+      <section class="scene card-scene" id="algebra" aria-label="代数">
         <div class="img-placeholder card-bg" data-src="assets/house-of-wisdom.jpg"></div>
         <div class="card-content reveal">
           <p class="card-kicker">Algebra</p>
@@ -115,9 +120,10 @@
           <p>在巴格达的智慧宫，花拉子米把来自印度、希腊与波斯的算法重新组织为一种可传授的计算语言。后来，这种知识被翻译、迁移、制度化，成为欧洲数学史里更熟悉的词。</p>
           <p class="disappear-name">花拉子米<span class="strike-line"></span></p>
         </div>
+        <a class="next-cue" href="#medicine" aria-label="下一页"></a>
       </section>
 
-      <section class="scene card-scene" aria-label="传统知识，现代专利">
+      <section class="scene card-scene" id="medicine" aria-label="传统知识，现代专利">
         <div class="img-placeholder card-bg" data-src="assets/medicine-split.jpg"></div>
         <div class="card-content reveal">
           <p class="card-kicker">传统知识，现代专利</p>
@@ -125,9 +131,10 @@
           <p>许多药用植物、治疗经验与制备方法，先在地方社群里流传了数百年。进入实验室、论文与专利体系之后，知识被重新命名，原来的讲述者却常常变成脚注之外的人。</p>
           <p class="disappear-name">传统医者<span class="strike-line"></span></p>
         </div>
+        <a class="next-cue" href="#maps" aria-label="下一页"></a>
       </section>
 
-      <section class="scene card-scene" aria-label="星图与署名权">
+      <section class="scene card-scene" id="maps" aria-label="星图与署名权">
         <div class="img-placeholder card-bg" data-src="assets/star-map-islamic.jpg"></div>
         <div class="card-content reveal">
           <p class="card-kicker">Maps of the Sky</p>
@@ -135,9 +142,10 @@
           <p>星图、历法、航海表和仪器名，在语言之间移动时，也在权力之间移动。被吸收的知识并不一定被承认；它可能继续工作，却不再拥有自己的名字。</p>
           <p class="disappear-name">共同作者<span class="strike-line"></span></p>
         </div>
+        <a class="next-cue" href="#ending" aria-label="下一页"></a>
       </section>
 
-      <section class="scene ending-scene" aria-label="结尾">
+      <section class="scene ending-scene" id="ending" aria-label="结尾">
         <div class="img-placeholder ending-map map-one" data-src="assets/star-map-chinese.jpg"></div>
         <div class="img-placeholder ending-map map-two" data-src="assets/star-map-islamic.jpg"></div>
         <div class="ending-copy">
@@ -146,6 +154,6 @@
         </div>
       </section>
     </main>
-    <script src="script.js"></script>
+    <script src="script.js?v=20260429-3"></script>
   </body>
 </html>

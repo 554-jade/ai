@@ -61,6 +61,27 @@ const pageSource = `${html}\n${css}\n${js}`;
 
 assertIncludes(html, 'stage-text-lines', 'split Stage C text lines');
 [
+  'id="stage-a"',
+  'id="stage-b"',
+  'id="stage-c"',
+  'id="erasure"',
+  'id="why"',
+  'id="algebra"',
+  'id="medicine"',
+  'id="maps"',
+  'id="ending"',
+  'href="#stage-a"',
+  'href="#stage-b"',
+  'href="#stage-c"',
+  'href="#erasure"',
+  'href="#why"',
+  'href="#algebra"',
+  'href="#medicine"',
+  'href="#maps"',
+  'href="#ending"',
+].forEach((needle) => assertIncludes(html, needle, 'click-next anchor flow'));
+
+[
   '扎马鲁丁带来了七件仪器，带来了更精确的计算方法。',
   '郭守敬学习了，吸收了，',
   '然后超越了。',
@@ -106,6 +127,11 @@ assertRegex(html, /class="[^"]*scene[^"]*"/, 'scene markup');
 assertIncludes(js, 'IntersectionObserver', 'Intersection Observer');
 assertIncludes(js, 'prefers-reduced-motion', 'reduced motion detection');
 assertIncludes(js, 'typewriter', 'typewriter logic hook');
+assertIncludes(js, 'setupPanelNavigation', 'click-to-next panel navigation');
+assertIncludes(js, 'next-cue', 'next panel cue');
+assertIncludes(js, 'scrollIntoView', 'next panel scrolling');
+assertIncludes(js, 'wait(45)', 'faster typewriter character speed');
+assertIncludes(js, 'wait(1200)', 'faster ending question pause');
 assertIncludes(css, '@media (prefers-reduced-motion: reduce)', 'reduced motion CSS');
 assertIncludes(css, '#080c18', 'background color');
 assertIncludes(css, '#c9a84c', 'gold color');
@@ -114,7 +140,13 @@ assertIncludes(css, '#c0392b', 'red accent color');
 assertIncludes(css, '#f0ead6', 'text color');
 assertIncludes(css, 'starRotate', 'star rotation animation');
 assertIncludes(css, '120s', 'slow hero background rotation');
+assertIncludes(css, '--ease: 0.55s ease', 'faster global transition speed');
+assertIncludes(css, 'animation-delay: 2.5s', 'faster hero line sequence');
 assertIncludes(css, 'min-height: 100vh', 'minimum scene height');
 assertIncludes(css, 'transition', 'transitions');
+assertIncludes(css, 'scroll-snap-type', 'page snap rhythm');
+assertIncludes(css, '.next-cue', 'click-next cue styling');
+assertIncludes(css, 'background-position: center top', 'top-anchored figure images');
+assertIncludes(css, 'transform-origin: top center', 'top-origin figure scaling');
 
 console.log('Static scrollytelling checks passed.');

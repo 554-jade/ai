@@ -5,7 +5,7 @@
   --red: #c0392b;
   --text: #f0ead6;
   --shadow: 0 3px 18px rgba(0, 0, 0, 0.78);
-  --ease: 0.8s ease;
+  --ease: 0.55s ease;
 }
 
 * {
@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -33,6 +34,11 @@ main {
   min-height: 100vh;
   overflow: hidden;
   isolation: isolate;
+}
+
+.scene:not(.scene-two),
+.scroll-stage {
+  scroll-snap-align: start;
 }
 
 .img-placeholder {
@@ -107,36 +113,71 @@ strong {
   line-height: 1.32;
   opacity: 0;
   transform: translateY(18px);
-  animation: lineFade 1.2s ease forwards;
+  animation: lineFade 0.8s ease forwards;
 }
 
 .hero-line:nth-child(1) {
-  animation-delay: 0.4s;
+  animation-delay: 0.2s;
 }
 
 .hero-line:nth-child(2) {
-  animation-delay: 1.9s;
+  animation-delay: 0.95s;
 }
 
 .hero-line:nth-child(3) {
-  animation-delay: 3.4s;
+  animation-delay: 1.7s;
 }
 
 .hero-line:nth-child(4) {
-  animation-delay: 4.9s;
+  animation-delay: 2.5s;
+}
+
+.next-cue {
+  position: absolute;
+  z-index: 20;
+  display: block;
+  bottom: clamp(18px, 3vh, 34px);
+  right: clamp(18px, 3vw, 38px);
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(201, 168, 76, 0.62);
+  border-radius: 999px;
+  background: rgba(8, 12, 24, 0.36);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), inset 0 0 22px rgba(201, 168, 76, 0.08);
+  cursor: pointer;
+  text-decoration: none;
+  appearance: none;
+  transform: none;
+  transition: opacity var(--ease), transform var(--ease), border-color var(--ease), background var(--ease);
+  backdrop-filter: blur(8px);
+}
+
+.next-cue::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 13px;
+  height: 13px;
+  border-right: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.next-cue:hover,
+.next-cue:focus-visible {
+  border-color: var(--blue-white);
+  background: rgba(8, 12, 24, 0.62);
+  outline: none;
 }
 
 .scroll-indicator {
-  position: absolute;
-  z-index: 3;
   bottom: 32px;
+  right: auto;
   left: 50%;
-  width: 24px;
-  height: 24px;
-  border-right: 2px solid var(--gold);
-  border-bottom: 2px solid var(--gold);
-  transform: translateX(-50%) rotate(45deg);
-  animation: bounce 1.6s ease-in-out infinite;
+  transform: translateX(-50%);
+  animation: bounce 1.15s ease-in-out infinite;
 }
 
 .scroll-stage {
@@ -146,6 +187,37 @@ strong {
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
   background: var(--bg);
+}
+
+.stage-a,
+.stage-b {
+  box-shadow: inset 0 -22vh 70px rgba(8, 12, 24, 0.82);
+}
+
+.stage-a::before,
+.stage-b::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 8vh;
+  bottom: 8vh;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 76, 0.45), transparent);
+  opacity: 0.82;
+}
+
+.stage-a::after,
+.stage-b::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 18vh;
+  background: linear-gradient(180deg, transparent, rgba(8, 12, 24, 0.88));
+  pointer-events: none;
 }
 
 .figure-panel {
@@ -173,6 +245,9 @@ strong {
 }
 
 .figure-img {
+  background-position: center top;
+  transform: scale(1.035);
+  transform-origin: top center;
   filter: saturate(0.74) contrast(1.08) brightness(0.76);
 }
 
@@ -273,7 +348,7 @@ strong {
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
-  animation: floatIcon 4s ease-in-out infinite;
+  animation: floatIcon 2.8s ease-in-out infinite;
 }
 
 .instrument-cluster span:nth-child(even) svg {
@@ -317,7 +392,7 @@ strong {
 }
 
 .stage-c.is-visible .transfer-light {
-  animation: transfer 2.2s ease 0.5s forwards;
+  animation: transfer 1.25s ease 0.22s forwards;
 }
 
 .calendar-reveal {
@@ -329,7 +404,7 @@ strong {
   aspect-ratio: 4 / 3;
   transform: translate(-50%, -50%) scale(0.94);
   opacity: 0;
-  transition: opacity 1.2s ease 1.4s, transform 1.2s ease 1.4s;
+  transition: opacity 0.75s ease 0.75s, transform 0.75s ease 0.75s;
 }
 
 .stage-c.is-visible .calendar-reveal {
@@ -379,7 +454,7 @@ strong {
 }
 
 .erasure-scene.is-visible .erasure-calendar {
-  animation: calendarZoom 14s ease forwards;
+  animation: calendarZoom 9s ease forwards;
 }
 
 .erasure-copy {
@@ -404,11 +479,11 @@ strong {
 
 .erasure-scene.is-visible .classic-title,
 .erasure-scene.is-visible .classic-author {
-  animation: lineFade 1s ease forwards;
+  animation: lineFade 0.7s ease forwards;
 }
 
 .erasure-scene.is-visible .classic-author {
-  animation-delay: 0.9s;
+  animation-delay: 0.45s;
 }
 
 .ghost-name {
@@ -443,12 +518,12 @@ strong {
 
 .erasure-scene.strike .ghost-name .strike-line,
 .is-visible .disappear-name .strike-line {
-  animation: strikeAcross 1s ease forwards;
+  animation: strikeAcross 0.65s ease forwards;
 }
 
 .erasure-scene.vanish .ghost-name {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 0.55s ease;
 }
 
 .vanishing-lines {
@@ -465,15 +540,15 @@ strong {
 }
 
 .erasure-scene.lines .vanishing-lines p:nth-child(1) {
-  animation: lineFade 0.9s ease forwards;
+  animation: lineFade 0.65s ease forwards;
 }
 
 .erasure-scene.lines .vanishing-lines p:nth-child(2) {
-  animation: lineFade 0.9s ease 0.9s forwards;
+  animation: lineFade 0.65s ease 0.45s forwards;
 }
 
 .erasure-scene.lines .vanishing-lines p:nth-child(3) {
-  animation: lineFade 0.9s ease 1.8s forwards;
+  animation: lineFade 0.65s ease 0.9s forwards;
 }
 
 .why-bg {
@@ -501,21 +576,21 @@ strong {
 }
 
 .why-line:nth-child(2) {
-  transition-delay: 0.45s;
+  transition-delay: 0.22s;
 }
 
 .why-line:nth-child(3) {
-  transition-delay: 0.9s;
+  transition-delay: 0.44s;
 }
 
 .why-line:nth-child(4) {
-  transition-delay: 1.35s;
+  transition-delay: 0.66s;
 }
 
 .why-final {
   margin-top: 2rem;
   font-weight: 900;
-  transition-delay: 1.95s;
+  transition-delay: 0.95s;
 }
 
 .card-scene {
@@ -585,7 +660,7 @@ strong {
 }
 
 .is-visible .word-transfer i {
-  animation: arrowGlow 1.8s ease infinite;
+  animation: arrowGlow 1.2s ease infinite;
 }
 
 .card-content p {
@@ -665,7 +740,7 @@ strong {
 .ending-scene.question-visible .final-question {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 footer {
@@ -709,10 +784,10 @@ footer {
 @keyframes bounce {
   0%,
   100% {
-    transform: translate(-50%, 0) rotate(45deg);
+    transform: translate(-50%, 0);
   }
   50% {
-    transform: translate(-50%, 10px) rotate(45deg);
+    transform: translate(-50%, 10px);
   }
 }
 
@@ -774,6 +849,11 @@ footer {
   .stage-a,
   .stage-b {
     min-height: 120vh;
+  }
+
+  .stage-a::before,
+  .stage-b::before {
+    display: none;
   }
 
   .center-title {
