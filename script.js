@@ -9,74 +9,79 @@
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+
         entry.target.classList.add('is-visible');
 
-        if (entry.target.classList.contains('erasure-scene')) {
-          runErasure(entry.target);
+        if (entry.target.id === 'sky-to-calendar') {
+          runLineSequence(entry.target);
         }
 
-        if (entry.target.classList.contains('ending-scene')) {
+        if (entry.target.id === 'political-civilization') {
+          runGlowLabels(entry.target);
+        }
+
+        if (entry.target.id === 'final-thesis') {
           runTypewriter(entry.target);
         }
       });
     },
     {
-      threshold: 0.28,
-      rootMargin: '0px 0px -4% 0px',
+      threshold: 0.24,
+      rootMargin: '0px 0px -8% 0px',
     }
   );
 
   document
-    .querySelectorAll('.scene, .scroll-stage, .reveal')
+    .querySelectorAll('.scene, .reveal, .reveal-line, .reveal-side, .scroll-figure')
     .forEach((el) => observer.observe(el));
 
+  setupRevealCards();
   setupPanelNavigation();
+  setupParallax();
 
-  let ticking = false;
-  function updateParallax() {
-    ticking = false;
-    const viewport = window.innerHeight || 1;
-    document.querySelectorAll('.scene').forEach((scene) => {
-      const rect = scene.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > viewport) return;
-      const centerOffset = rect.top + rect.height / 2 - viewport / 2;
-      scene.style.setProperty('--parallax', String(centerOffset));
-    });
-  }
+  function runLineSequence(section) {
+    if (section.dataset.played === 'flow') return;
+    section.dataset.played = 'flow';
 
-  if (!reduceMotion) {
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(updateParallax);
-      },
-      { passive: true }
-    );
-    updateParallax();
-  }
-
-  function runErasure(scene) {
-    if (scene.dataset.played === 'true') return;
-    scene.dataset.played = 'true';
+    const nodes = Array.from(section.querySelectorAll('.flow-node'));
 
     if (reduceMotion) {
-      scene.classList.add('show-ghost', 'strike', 'vanish', 'lines');
+      nodes.forEach((node) => node.classList.add('lit', 'line-lit'));
+      section.querySelector('.legitimacy-node')?.classList.add('pulse');
       return;
     }
 
-    window.setTimeout(() => scene.classList.add('show-ghost'), 1800);
-    window.setTimeout(() => scene.classList.add('strike'), 2500);
-    window.setTimeout(() => scene.classList.add('vanish'), 3400);
-    window.setTimeout(() => scene.classList.add('lines'), 4000);
+    nodes.forEach((node, index) => {
+      window.setTimeout(() => {
+        node.classList.add('lit');
+        if (index < nodes.length - 1) node.classList.add('line-lit');
+        if (node.classList.contains('legitimacy-node')) node.classList.add('pulse');
+      }, 260 + index * 360);
+    });
   }
 
-  async function runTypewriter(scene) {
-    if (scene.dataset.played === 'true') return;
-    scene.dataset.played = 'true';
+  function runGlowLabels(section) {
+    if (section.dataset.labelsPlayed === 'true') return;
+    section.dataset.labelsPlayed = 'true';
 
-    const target = scene.querySelector('.typewriter');
+    const labels = Array.from(section.querySelectorAll('.glow-label'));
+
+    if (reduceMotion) {
+      labels.forEach((label) => label.classList.add('is-visible'));
+      return;
+    }
+
+    labels.forEach((label, index) => {
+      window.setTimeout(() => label.classList.add('is-visible'), 360 + index * 260);
+    });
+  }
+
+  async function runTypewriter(section) {
+    if (section.dataset.played === 'final') return;
+    section.dataset.played = 'final';
+
+    const target = section.querySelector('.typewriter');
+    const finalStatement = section.querySelector('.final-statement');
     if (!target) return;
 
     const lines = (target.dataset.lines || '').split('|').filter(Boolean);
@@ -88,7 +93,7 @@
         p.textContent = line;
         target.appendChild(p);
       });
-      scene.classList.add('question-visible');
+      finalStatement?.classList.add('is-visible');
       return;
     }
 
@@ -99,27 +104,19 @@
 
       for (const char of line) {
         p.textContent += char;
-        await wait(45);
+        await wait(38);
       }
 
       p.classList.remove('cursor');
-      await wait(240);
+      await wait(260);
     }
 
-    await wait(1200);
-    scene.classList.add('question-visible');
-  }
-
-  function wait(ms) {
-    return new Promise((resolve) => window.setTimeout(resolve, ms));
+    await wait(760);
+    finalStatement?.classList.add('is-visible');
   }
 
   function setupPanelNavigation() {
-    const panels = Array.from(
-      document.querySelectorAll(
-        '.scene-hero, .scroll-stage, .erasure-scene, .why-scene, .card-scene, .ending-scene'
-      )
-    );
+    const panels = Array.from(document.querySelectorAll('.scene-panel'));
 
     function goToPanel(index) {
       const panel = panels[index];
@@ -144,16 +141,8 @@
     }
 
     panels.forEach((panel, index) => {
-      if (index === panels.length - 1) return;
-
-      let cue = Array.from(panel.children).find((child) => child.classList?.contains('next-cue'));
-      if (!cue) {
-        cue = document.createElement('button');
-        cue.className = 'next-cue';
-        cue.type = 'button';
-        cue.setAttribute('aria-label', '下一页');
-        panel.appendChild(cue);
-      }
+      const cue = panel.querySelector('.next-cue');
+      if (!cue) return;
 
       cue.addEventListener('click', (event) => {
         event.preventDefault();
@@ -175,5 +164,59 @@
         goToPanel(currentPanelIndex() - 1);
       }
     });
+  }
+
+  function setupRevealCards() {
+    const cards = Array.from(document.querySelectorAll('[data-reveal-card]'));
+
+    cards.forEach((card) => {
+      function revealCard() {
+        if (card.classList.contains('is-revealed')) return;
+        card.classList.add('is-revealed');
+        card.setAttribute('aria-expanded', 'true');
+        card.querySelector('.card-back')?.setAttribute('aria-hidden', 'true');
+        card.querySelector('.card-front')?.setAttribute('aria-hidden', 'false');
+      }
+
+      card.addEventListener('click', revealCard);
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        revealCard();
+      });
+    });
+  }
+
+  function setupParallax() {
+    if (reduceMotion) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      ticking = false;
+      const viewport = window.innerHeight || 1;
+      document.querySelectorAll('.scene').forEach((scene) => {
+        const rect = scene.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > viewport) return;
+        const centerOffset = rect.top + rect.height / 2 - viewport / 2;
+        scene.style.setProperty('--parallax', String(centerOffset));
+      });
+    }
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(updateParallax);
+      },
+      { passive: true }
+    );
+
+    updateParallax();
+  }
+
+  function wait(ms) {
+    return new Promise((resolve) => window.setTimeout(resolve, ms));
   }
 })();

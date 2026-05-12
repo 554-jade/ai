@@ -19,6 +19,12 @@ function assertIncludes(source, needle, label) {
   }
 }
 
+function assertNotIncludes(source, needle, label) {
+  if (source.includes(needle)) {
+    throw new Error(`Unexpected ${label}: ${needle}`);
+  }
+}
+
 function assertRegex(source, pattern, label) {
   if (!pattern.test(source)) {
     throw new Error(`Missing ${label}: ${pattern}`);
@@ -30,123 +36,156 @@ const css = read(cssPath);
 const js = read(jsPath);
 const pageSource = `${html}\n${css}\n${js}`;
 
-[
-  'Noto Serif SC',
-  'Cinzel',
-  'Inter',
-].forEach((needle) => assertIncludes(pageSource, needle, 'required font'));
+['Noto Serif SC', 'Cinzel', 'Inter'].forEach((needle) =>
+  assertIncludes(pageSource, needle, 'required font')
+);
 
 [
-  'star-map-chinese.jpg',
-  'guo-back.jpg',
-  'jamal-back.jpg',
-  'guo-portrait.jpg',
-  'jamal-portrait.jpg',
-  'shoushi-calendar.jpg',
+  'id="hero-opening"',
+  'id="two-astronomies"',
+  'id="sky-to-calendar"',
+  'id="visibility-memory"',
+  'id="political-civilization"',
+  'id="contemporary-mirror"',
+  'id="celestial-textures"',
+  'id="final-thesis"',
+].forEach((needle) => assertIncludes(html, needle, 'required section id'));
+
+[
+  'href="#two-astronomies"',
+  'href="#sky-to-calendar"',
+  'href="#visibility-memory"',
+  'href="#political-civilization"',
+  'href="#contemporary-mirror"',
+  'href="#celestial-textures"',
+  'href="#final-thesis"',
+].forEach((needle) => assertIncludes(html, needle, 'section navigation flow'));
+
+[
+  '01_hero_same_sky.png',
+  '02_two_astronomies_one_city.png',
+  '03_sky_to_calendar_flow.png',
+  '04_visibility_and_memory_scroll.png',
+  '05_calendar_political_civilization.png',
+  '06_contemporary_mirror_astronomy.png',
+  '07_chinese_celestial_texture.png',
+  '08_islamic_celestial_texture.png',
+  'reference_keep/ref_guo_shoujing_portrait.jpg',
+  'reference_keep/ref_jamal_al_din_portrait.jpg',
+  'reference_keep/ref_hero_backview_chinese.jpg',
+  'reference_keep/ref_jamal_backview_city.jpg',
+  'reference_keep/ref_chinese_star_map.jpg',
+  'reference_keep/ref_islamic_star_map.jpg',
   'kublai-portrait.jpg',
-  'house-of-wisdom.jpg',
-  'medicine-split.jpg',
-  'star-map-islamic.jpg',
-  '1281年，北京。',
-  '两个天文学家，同时为同一个皇帝工作。',
-  '最终，只有一个人的名字留了下来。',
-  '1271年，忽必烈同时召见了他们。',
-  '两套宇宙观，在同一个宫廷里相遇。',
-  '大元授时历经',
-  '郭守敬　撰',
-  '知识的生产是共同的。知识的署名权，由权力决定。',
+].forEach((needle) => assertIncludes(html, needle, 'astronomy asset'));
+
+[
+  'Astronomy & Political Civilization',
+  'Beijing, 1281.',
+  'Two cosmologies',
+  'From Sky to Calendar',
+  'Celestial signs',
+  'Observation',
+  'Calculation',
+  'Calendar',
+  'Agriculture / Ritual / Administration',
+  'Imperial legitimacy',
+  'The Shoushi Calendar.',
+  'Calendar as a core technology of political civilization',
+  'Who holds the authority',
+  'Control of astronomical data',
+  'The same sky,',
+  'different credits.',
+  'Sky -> Calendar -> Order -> Imperial Legitimacy -> Contemporary Scientific Authority',
+].forEach((needle) => assertIncludes(html, needle, 'English astronomy narrative'));
+
+[
+  'Guo Shoujing',
+  'Jamal al-Din',
+  'Shoushi Calendar',
+  'Islamic astronomy',
+  'Calendrical reform in North China',
+  'Observation instruments and the state calendar',
+  'Scientific authority',
+  'Kublai Khan',
+].forEach((needle) => assertIncludes(html, needle, 'paired astronomer content'));
+
+[
+  'data-reveal-card="guo"',
+  'data-reveal-card="jamal"',
+  'card-back',
+  'card-front',
+  'Click to reveal the figure',
+  'backview-copy',
+  'backview-image',
+].forEach((needle) => assertIncludes(html, needle, 'interactive card reveal structure'));
+
+[
+  'class="img-placeholder section-bg sky-flow-backdrop"',
+  'class="img-placeholder section-bg texture-backdrop"',
+  'class="img-placeholder section-bg final-backdrop"',
+].forEach((needle) => assertIncludes(html, needle, 'background image layer'));
+
+[
+  'Algebra',
+  'Algorithm',
   'الجبر',
-  '今天，还有谁的名字正在消失？',
-].forEach((needle) => assertIncludes(html, needle, 'required content'));
+  'medicine-split',
+  'house-of-wisdom',
+  'patent',
+].forEach((needle) => assertNotIncludes(html, needle, 'off-topic content'));
 
-assertIncludes(html, 'stage-text-lines', 'split Stage C text lines');
-[
-  'id="stage-a"',
-  'id="stage-b"',
-  'id="stage-c"',
-  'id="erasure"',
-  'id="why"',
-  'id="algebra"',
-  'id="medicine"',
-  'id="maps"',
-  'id="ending"',
-  'href="#stage-a"',
-  'href="#stage-b"',
-  'href="#stage-c"',
-  'href="#erasure"',
-  'href="#why"',
-  'href="#algebra"',
-  'href="#medicine"',
-  'href="#maps"',
-  'href="#ending"',
-].forEach((needle) => assertIncludes(html, needle, 'click-next anchor flow'));
+assertNotIncludes(html, 'lang="zh-CN"', 'Chinese page language tag');
+assertNotIncludes(html, '下一页', 'Chinese navigation label');
+assertNotIncludes(html, '点击后再看人物', 'Chinese reveal prompt');
+assertNotIncludes(html, '郭守敬', 'Chinese personal name');
+assertNotIncludes(html, '扎马鲁丁', 'Chinese personal name');
+assertNotIncludes(html, '忽必烈', 'Chinese personal name');
+assertRegex(html, /^[\s\S]*$/u, 'valid UTF-8 content');
 
-[
-  '扎马鲁丁带来了七件仪器，带来了更精确的计算方法。',
-  '郭守敬学习了，吸收了，',
-  '然后超越了。',
-].forEach((needle) => assertIncludes(html, needle, 'Stage C text line'));
-
-if (html.includes('<p class="stage-text reveal">扎马鲁丁带来了七件仪器，带来了更精确的计算方法。郭守敬学习了，吸收了，然后超越了。</p>')) {
-  throw new Error('Stage C text is still a single oversized paragraph');
+if (/[\u3400-\u9fff]/u.test(html)) {
+  throw new Error('Chinese characters remain in index.html');
 }
 
-if (html.includes('这个网页由AI生成。AI的训练数据，80%以上是英文。')) {
-  throw new Error('Removed footer text is still present');
-}
+assertRegex(html, /class="[^"]*flow-node[^"]*"[^>]*data-tone="science"/, 'science flow nodes');
+assertRegex(html, /class="[^"]*flow-node[^"]*"[^>]*data-tone="calendar"/, 'calendar flow node');
+assertRegex(html, /class="[^"]*flow-node[^"]*"[^>]*data-tone="power"/, 'power flow nodes');
 
-[
-  '简仪',
-  '圭表',
-  '仰仪',
-  '星盘',
-  '浑天仪',
-  '方位仪',
-  '纪限仪',
-].forEach((needle) => assertIncludes(html, needle, 'instrument name'));
+assertIncludes(js, 'IntersectionObserver', 'Intersection Observer');
+assertIncludes(js, 'setupPanelNavigation', 'click-to-next panel navigation');
+assertIncludes(js, 'setupRevealCards', 'card reveal interactions');
+assertIncludes(js, 'is-revealed', 'card revealed class handling');
+assertIncludes(js, 'runLineSequence', 'flow line sequence');
+assertIncludes(js, 'runTypewriter', 'final thesis reveal');
+assertIncludes(js, 'prefers-reduced-motion', 'reduced motion detection');
 
-[
-  '苦来亦儿撒麻',
-  '苦来亦阿儿子',
-  '鲁哈麻亦渺凹只',
-].forEach((needle) => {
-  if (html.includes(needle)) {
-    throw new Error(`Removed instrument name is still present: ${needle}`);
-  }
-});
+assertIncludes(css, '#05070B', 'deep black background');
+assertIncludes(css, '#0A1320', 'night blue background');
+assertIncludes(css, '#D7A64A', 'gold palette');
+assertIncludes(css, '#8FB6D9', 'blue palette');
+assertIncludes(css, '#E7E2D8', 'body text palette');
+assertIncludes(css, 'heroZoom', 'hero slow zoom animation');
+assertIncludes(css, 'twinkle', 'star twinkle animation');
+assertIncludes(css, '.astronomy-card.is-revealed .card-front', 'revealed card front state');
+assertIncludes(css, '.astronomy-card:not(.is-revealed) .card-back', 'hidden front default state');
+assertIncludes(css, '.political-copy', 'political copy styling');
+assertIncludes(css, 'justify-self: start', 'left anchored panel placement');
+assertIncludes(css, '.sky-flow-backdrop', 'sky flow backdrop styling');
+assertIncludes(css, '.texture-backdrop', 'celestial backdrop styling');
+assertIncludes(css, '.final-backdrop', 'final backdrop styling');
+assertIncludes(css, '@media (prefers-reduced-motion: reduce)', 'reduced motion CSS');
 
-assertRegex(html, /class="[^"]*img-placeholder[^"]*"[^>]*data-src="assets\//, 'image placeholders with data-src');
-const assetRefs = [...html.matchAll(/data-src="([^"]+)"/g)].map((match) => match[1]);
+const assetRefs = [...html.matchAll(/(?:data-src|src)="([^"]*\.(?:png|jpg|jpeg|webp))"/g)].map(
+  (match) => match[1]
+);
+
 assetRefs.forEach((assetRef) => {
-  const assetPath = path.join(root, assetRef);
+  if (/^https?:\/\//.test(assetRef)) return;
+  const normalizedRef = assetRef.replace(/^\//, '');
+  const assetPath = path.join(root, normalizedRef);
   if (!fs.existsSync(assetPath)) {
     throw new Error(`Referenced asset is missing: ${assetRef}`);
   }
 });
-assertRegex(html, /class="[^"]*scene[^"]*"/, 'scene markup');
-assertIncludes(js, 'IntersectionObserver', 'Intersection Observer');
-assertIncludes(js, 'prefers-reduced-motion', 'reduced motion detection');
-assertIncludes(js, 'typewriter', 'typewriter logic hook');
-assertIncludes(js, 'setupPanelNavigation', 'click-to-next panel navigation');
-assertIncludes(js, 'next-cue', 'next panel cue');
-assertIncludes(js, 'scrollIntoView', 'next panel scrolling');
-assertIncludes(js, 'wait(45)', 'faster typewriter character speed');
-assertIncludes(js, 'wait(1200)', 'faster ending question pause');
-assertIncludes(css, '@media (prefers-reduced-motion: reduce)', 'reduced motion CSS');
-assertIncludes(css, '#080c18', 'background color');
-assertIncludes(css, '#c9a84c', 'gold color');
-assertIncludes(css, '#e8f4f8', 'blue-white color');
-assertIncludes(css, '#c0392b', 'red accent color');
-assertIncludes(css, '#f0ead6', 'text color');
-assertIncludes(css, 'starRotate', 'star rotation animation');
-assertIncludes(css, '120s', 'slow hero background rotation');
-assertIncludes(css, '--ease: 0.55s ease', 'faster global transition speed');
-assertIncludes(css, 'animation-delay: 2.5s', 'faster hero line sequence');
-assertIncludes(css, 'min-height: 100vh', 'minimum scene height');
-assertIncludes(css, 'transition', 'transitions');
-assertIncludes(css, 'scroll-snap-type', 'page snap rhythm');
-assertIncludes(css, '.next-cue', 'click-next cue styling');
-assertIncludes(css, 'background-position: center top', 'top-anchored figure images');
-assertIncludes(css, 'transform-origin: top center', 'top-origin figure scaling');
 
-console.log('Static scrollytelling checks passed.');
+console.log('English astronomy site checks passed.');

@@ -1,159 +1,237 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>消失的名字</title>
+    <title>The Vanished Name | Astronomy and Political Civilization</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&family=Noto+Serif+SC:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260429-3">
+    <link rel="stylesheet" href="styles.css?v=20260512-1">
   </head>
   <body>
     <main>
-      <section class="scene hero scene-hero" aria-label="1281年，北京">
-        <div class="img-placeholder hero-map rotating-map" data-src="assets/star-map-chinese.jpg"></div>
-        <div class="scrim"></div>
+      <section class="scene hero-opening scene-panel" id="hero-opening" aria-label="Opening: Beijing, 1281">
+        <div class="img-placeholder section-bg hero-bg" data-src="assets/yuan-astronomy/01_hero_same_sky.png"></div>
+        <div class="star-field" aria-hidden="true"></div>
         <div class="hero-copy">
-          <p class="hero-line">1281年，北京。</p>
-          <p class="hero-line">两个天文学家，同时为同一个皇帝工作。</p>
-          <p class="hero-line">他们用不同的语言，不同的仪器，观察同一片天空。</p>
-          <p class="hero-line gold">最终，只有一个人的名字留了下来。</p>
+          <p class="kicker reveal-line">Astronomy & Political Civilization</p>
+          <p class="hero-line">Beijing, 1281.</p>
+          <p class="hero-line">Two astronomers<br>served the same emperor.</p>
+          <p class="hero-line sky-bright">They used different languages,<br>different instruments,<br>to observe the same sky.</p>
+          <p class="hero-line gold last-name">In the end,<br>only one name remained.</p>
+          <div class="hero-note">
+            <p>Astronomy was not only about the sky.</p>
+            <p>It was about who could turn the sky into order.</p>
+            <p>The question was never only what was seen above.</p>
+            <p>It was who had the power to make it govern life below.</p>
+          </div>
         </div>
-        <a class="next-cue scroll-indicator" href="#stage-a" aria-label="下一页"></a>
+        <a class="next-cue scroll-indicator" href="#two-astronomies" aria-label="Next section"></a>
       </section>
 
-      <section class="scene scene-two" aria-label="两位天文学家">
-        <article class="scroll-stage stage-a" id="stage-a">
-          <div class="figure-panel figure-left">
-            <div class="img-placeholder figure-img" data-src="assets/guo-back.jpg"></div>
-          </div>
-          <div class="figure-panel figure-right">
-            <div class="img-placeholder figure-img" data-src="assets/jamal-back.jpg"></div>
-          </div>
-          <h2 class="center-title reveal">1271年，忽必烈同时召见了他们。</h2>
-          <a class="next-cue" href="#stage-b" aria-label="下一页"></a>
-        </article>
-
-        <article class="scroll-stage stage-b" id="stage-b">
-          <div class="figure-panel portrait-left">
-            <div class="img-placeholder figure-img back" data-src="assets/guo-back.jpg"></div>
-            <div class="img-placeholder figure-img front" data-src="assets/guo-portrait.jpg"></div>
-            <div class="instrument-cluster left-cluster" aria-label="郭守敬仪器">
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 26h20M16 6v20M9 16h14M11 9l10 14"/></svg>简仪</span>
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 25h18M16 5v20M10 12h12"/></svg>圭表</span>
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 23c6-12 16-12 22 0M16 7v16M9 17h14"/></svg>仰仪</span>
+      <section class="scene two-astronomies scene-panel" id="two-astronomies" aria-label="Two astronomies, one court">
+        <div class="img-placeholder section-bg parallax-bg" data-src="assets/yuan-astronomy/02_two_astronomies_one_city.png"></div>
+        <div class="section-scrim"></div>
+        <article class="astronomy-card guo-card reveal-side" data-side="left" data-reveal-card="guo" role="button" tabindex="0" aria-expanded="false">
+          <div class="card-stage card-back" aria-hidden="false">
+            <div class="img-placeholder backview-image" data-src="assets/yuan-astronomy/reference_keep/ref_hero_backview_chinese.jpg"></div>
+            <div class="backview-copy">
+              <p class="card-tag">Han observational system</p>
+              <p>Scrolls, instruments, and calendar reform appear before the name does.</p>
+              <small>Click to reveal the figure</small>
             </div>
           </div>
-          <div class="figure-panel portrait-right">
-            <div class="img-placeholder figure-img back" data-src="assets/jamal-back.jpg"></div>
-            <div class="img-placeholder figure-img front" data-src="assets/jamal-portrait.jpg"></div>
-            <div class="instrument-cluster right-cluster" aria-label="扎马鲁丁仪器">
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"/><path d="M6 16h20M16 6v20"/></svg>星盘</span>
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11"/><ellipse cx="16" cy="16" rx="5" ry="11"/></svg>浑天仪</span>
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4v24M4 16h24M16 16l8-7"/></svg>方位仪</span>
-              <span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 25V7h16M8 16h13M8 25l16-18"/></svg>纪限仪</span>
+          <div class="card-stage card-front" aria-hidden="true">
+            <div class="img-placeholder portrait-img" data-src="assets/yuan-astronomy/reference_keep/ref_guo_shoujing_portrait.jpg"></div>
+            <div>
+              <h3>Guo Shoujing<br><span>Court astronomer</span></h3>
+              <p>Shoushi Calendar</p>
+              <p>Calendrical reform in North China</p>
+              <p>Observation instruments and the state calendar</p>
+            </div>
+            <small>He became the clearer name in dynastic memory.</small>
+          </div>
+        </article>
+        <article class="astronomy-card jamal-card reveal-side" data-side="right" data-reveal-card="jamal" role="button" tabindex="0" aria-expanded="false">
+          <div class="card-stage card-back" aria-hidden="false">
+            <div class="img-placeholder backview-image" data-src="assets/yuan-astronomy/reference_keep/ref_jamal_backview_city.jpg"></div>
+            <div class="backview-copy">
+              <p class="card-tag">Islamic astronomical tradition</p>
+              <p>Star tables, astrolabes, and observational practice entered the court before they entered a fainter historical position.</p>
+              <small>Click to reveal the figure</small>
             </div>
           </div>
-          <h2 class="center-title reveal">两套宇宙观，在同一个宫廷里相遇。</h2>
-          <a class="next-cue" href="#stage-c" aria-label="下一页"></a>
+          <div class="card-stage card-front" aria-hidden="true">
+            <div class="img-placeholder portrait-img" data-src="assets/yuan-astronomy/reference_keep/ref_jamal_al_din_portrait.jpg"></div>
+            <div>
+              <h3>Jamal al-Din<br><span>Islamic astronomer</span></h3>
+              <p>Islamic astronomy</p>
+              <p>Star tables, astrolabes, and observational traditions</p>
+              <p>Astronomical knowledge from the Islamic world</p>
+            </div>
+            <small>His contribution still worked; only its visibility changed.</small>
+          </div>
         </article>
+        <div class="section-copy center-copy">
+          <h2 class="reveal">Two cosmologies<br>met inside the same court.</h2>
+          <p class="reveal">Jamal al-Din brought astronomical instruments, star tables, and computational traditions from the Islamic world.</p>
+          <p class="reveal">The calendrical reforms associated with Guo Shoujing answered the Yuan rulers' need for political legitimacy.</p>
+          <p class="reveal">They observed the same sky, but their knowledge was placed in different political positions.</p>
+          <p class="english-note reveal">Two astronomical traditions met inside one imperial court. They shared the sky, but not the same historical visibility.</p>
+        </div>
+        <a class="next-cue" href="#sky-to-calendar" aria-label="Next section"></a>
+      </section>
 
-        <article class="scroll-stage stage-c" id="stage-c">
-          <div class="instrument-only left-cluster">
-            <span>简仪</span>
-            <span>圭表</span>
-            <span>仰仪</span>
+      <section class="scene sky-to-calendar scene-panel" id="sky-to-calendar" aria-label="From sky to calendar">
+        <div class="img-placeholder section-bg sky-flow-backdrop" data-src="assets/yuan-astronomy/01_hero_same_sky.png"></div>
+        <div class="img-placeholder section-bg" data-src="assets/yuan-astronomy/03_sky_to_calendar_flow.png"></div>
+        <div class="section-scrim dense"></div>
+        <div class="section-copy flow-copy">
+          <h2 class="reveal">From Sky to Calendar</h2>
+          <p class="lead reveal">When astronomical observation was turned into a calendar,<br>astronomy entered politics.</p>
+        </div>
+        <ol class="flow-timeline" aria-label="Flow from sky to political order">
+          <li class="flow-node" data-tone="science">
+            <strong>Celestial signs</strong>
+            <span>Observation of the sky</span>
+          </li>
+          <li class="flow-node" data-tone="science">
+            <strong>Observation</strong>
+            <span>Measurement</span>
+          </li>
+          <li class="flow-node" data-tone="science">
+            <strong>Calculation</strong>
+            <span>Calculation</span>
+          </li>
+          <li class="flow-node" data-tone="calendar">
+            <strong>Calendar</strong>
+            <span>Calendar</span>
+          </li>
+          <li class="flow-node" data-tone="power">
+            <strong>Agriculture / Ritual / Administration</strong>
+            <span>Agriculture / Ritual / Administration</span>
+          </li>
+          <li class="flow-node legitimacy-node" data-tone="power">
+            <strong>Imperial legitimacy</strong>
+            <span>Imperial Legitimacy</span>
+          </li>
+        </ol>
+        <p class="body-panel flow-body reveal">
+          A calendar did more than calculate dates. It determined when to sow, when to perform ritual, when to tax, and when to govern.
+          In imperial politics, issuing a calendar meant claiming the authority to order time itself.
+        </p>
+        <a class="next-cue" href="#visibility-memory" aria-label="Next section"></a>
+      </section>
+
+      <section class="scene visibility-memory scene-panel" id="visibility-memory" aria-label="The Shoushi Calendar and historical visibility">
+        <div class="img-placeholder texture-bg islamic-trace" data-src="assets/yuan-astronomy/reference_keep/ref_islamic_star_map.jpg"></div>
+        <div class="img-placeholder texture-bg chinese-trace" data-src="assets/yuan-astronomy/reference_keep/ref_chinese_star_map.jpg"></div>
+        <div class="section-scrim"></div>
+        <div class="section-copy memory-copy">
+          <h2 class="reveal">The Shoushi Calendar.</h2>
+          <p class="lead reveal">The knowledge did not disappear.<br>It was remembered in another way.</p>
+          <p class="reveal">The contribution was not banned.<br>It was not destroyed.</p>
+          <p class="reveal">It continued to work in instruments, calculations, and star maps.</p>
+          <p class="reveal">But once knowledge entered official history,<br>some names became <span class="clear-word">clear</span>,<br>while others became <span class="transparent-word">transparent</span>.</p>
+          <p class="english-note reveal">The knowledge did not vanish. Its visibility changed.</p>
+        </div>
+        <figure class="scroll-figure reveal">
+          <div class="img-placeholder scroll-img" data-src="assets/yuan-astronomy/04_visibility_and_memory_scroll.png"></div>
+          <figcaption>The Shoushi Calendar becomes the glowing center of official memory.</figcaption>
+        </figure>
+        <a class="next-cue" href="#political-civilization" aria-label="Next section"></a>
+      </section>
+
+      <section class="scene political-civilization scene-panel" id="political-civilization" aria-label="Calendar as political civilization">
+        <div class="img-placeholder section-bg" data-src="assets/yuan-astronomy/05_calendar_political_civilization.png"></div>
+        <div class="section-scrim warm"></div>
+        <div class="calendar-system" aria-hidden="true">
+          <div class="calendar-core">Calendar<br><span>Official timekeeping</span></div>
+          <span class="glow-label label-one">Agriculture</span>
+          <span class="glow-label label-two">Ritual</span>
+          <span class="glow-label label-three">Administration</span>
+          <span class="glow-label label-four">Taxation</span>
+          <span class="glow-label label-five">Mandate of Heaven</span>
+          <span class="glow-label label-six">Imperial Legitimacy</span>
+        </div>
+        <aside class="khan-chip reveal">
+          <div class="img-placeholder khan-img" data-src="assets/kublai-portrait.jpg"></div>
+          <span>Kublai Khan</span>
+        </aside>
+        <div class="body-panel political-copy reveal">
+          <h2>Calendar as a core technology of political civilization</h2>
+          <p>The Mongols conquered the Central Plain.</p>
+          <p>But conquest did not automatically make them a legitimate dynasty.</p>
+          <p>Issuing a calendar was one way Kublai Khan entered the political civilization of northern China.</p>
+          <p>Here, astronomy was not only science. It was a technology for turning military conquest into political legitimacy.</p>
+        </div>
+        <a class="next-cue" href="#contemporary-mirror" aria-label="Next section"></a>
+      </section>
+
+      <section class="scene contemporary-mirror scene-panel" id="contemporary-mirror" aria-label="Contemporary mirror">
+        <div class="img-placeholder section-bg" data-src="assets/yuan-astronomy/06_contemporary_mirror_astronomy.png"></div>
+        <div class="section-scrim split"></div>
+        <div class="mirror-title">
+          <h2 class="reveal">Who holds the authority<br>to interpret the sky today?</h2>
+        </div>
+        <div class="mirror-grid">
+          <article class="mirror-column ancient reveal-side" data-side="left">
+            <h3>Yuan dynasty</h3>
+            <p>Control of the calendar</p>
+            <p>Court astronomical institutions</p>
+            <p>Court astronomers</p>
+            <p>Official histories and dynastic narrative</p>
+            <p>Dynastic legitimacy</p>
+          </article>
+          <article class="mirror-column modern reveal-side" data-side="right">
+            <h3>Today</h3>
+            <p>Control of astronomical data</p>
+            <p>Large telescopes and research institutes</p>
+            <p>Authorship and citation systems</p>
+            <p>The right to name discoveries</p>
+            <p>Scientific authority</p>
+          </article>
+        </div>
+        <div class="body-panel mirror-body reveal">
+          <p>Modern astronomy appears to belong to all humanity.</p>
+          <p>But it still depends on large telescopes, databases, research institutions, authorship, naming rules, and funding networks.</p>
+          <p>The question never disappeared: who owns the instruments, who controls the data, who gets to name a discovery, and whose name appears at the top of the paper?</p>
+        </div>
+        <a class="next-cue" href="#celestial-textures" aria-label="Next section"></a>
+      </section>
+
+      <section class="scene celestial-textures scene-panel" id="celestial-textures" aria-label="Celestial texture transition">
+        <div class="img-placeholder section-bg texture-backdrop" data-src="assets/yuan-astronomy/01_hero_same_sky.png"></div>
+        <div class="img-placeholder texture-layer texture-chinese" data-src="assets/yuan-astronomy/07_chinese_celestial_texture.png"></div>
+        <div class="img-placeholder texture-layer texture-islamic" data-src="assets/yuan-astronomy/08_islamic_celestial_texture.png"></div>
+        <div class="star-field" aria-hidden="true"></div>
+        <div class="texture-copy reveal">
+          <p>The same sky.<br>Different ways of drawing it.</p>
+          <p>Different ways of naming.<br>Different ways of being remembered.</p>
+          <p class="english-note">As star maps, calendars, and instruments moved between civilizations, they also moved between structures of power.</p>
+        </div>
+        <a class="next-cue" href="#final-thesis" aria-label="Next section"></a>
+      </section>
+
+      <section class="scene final-thesis scene-panel" id="final-thesis" aria-label="Final thesis">
+        <div class="img-placeholder section-bg final-backdrop" data-src="assets/yuan-astronomy/01_hero_same_sky.png"></div>
+        <div class="img-placeholder texture-layer texture-chinese" data-src="assets/yuan-astronomy/07_chinese_celestial_texture.png"></div>
+        <div class="img-placeholder texture-layer texture-islamic final-mix" data-src="assets/yuan-astronomy/08_islamic_celestial_texture.png"></div>
+        <div class="section-scrim dense"></div>
+        <div class="final-copy">
+          <p class="kicker reveal">Maps of the Sky</p>
+          <h2 class="reveal">The same sky,<br>different credits.</h2>
+          <div class="typewriter" data-lines="Absorbed knowledge is not always acknowledged.|It may continue to work after losing its own name.|In the Yuan, the sky was turned into a calendar, the calendar into order, and order into dynastic legitimacy."></div>
+          <p class="logic-line reveal">Sky -> Calendar -> Order -> Imperial Legitimacy -> Contemporary Scientific Authority</p>
+          <div class="final-statement">
+            <p>Astronomy was never only about the sky.</p>
+            <p>It also concerned who had the authority to turn the sky into order.</p>
+            <small>Astronomy is never only about the sky. It is also about who has the authority to turn the sky into order.</small>
           </div>
-          <div class="instrument-only right-cluster">
-            <span>星盘</span>
-            <span>浑天仪</span>
-            <span>方位仪</span>
-            <span>纪限仪</span>
-          </div>
-          <div class="transfer-light" aria-hidden="true"></div>
-          <div class="calendar-reveal">
-            <div class="img-placeholder calendar-img" data-src="assets/shoushi-calendar.jpg"></div>
-          </div>
-          <p class="stage-text stage-text-lines reveal">
-            <span>扎马鲁丁带来了七件仪器，带来了更精确的计算方法。</span>
-            <span>郭守敬学习了，吸收了，</span>
-            <span>然后超越了。</span>
-          </p>
-          <a class="next-cue" href="#erasure" aria-label="下一页"></a>
-        </article>
-      </section>
-
-      <section class="scene erasure-scene" id="erasure" aria-label="消失">
-        <div class="img-placeholder erasure-calendar" data-src="assets/shoushi-calendar.jpg"></div>
-        <div class="erasure-copy">
-          <p class="classic-title"><span>大元授时历经</span></p>
-          <p class="classic-author gold">郭守敬　撰</p>
-          <p class="ghost-name">扎马鲁丁<span class="strike-line"></span></p>
-          <div class="vanishing-lines">
-            <p>他的贡献没有被禁止。</p>
-            <p>没有被摧毁。</p>
-            <p>只是，消失了。</p>
-          </div>
-        </div>
-        <a class="next-cue" href="#why" aria-label="下一页"></a>
-      </section>
-
-      <section class="scene why-scene" id="why" aria-label="为什么">
-        <div class="img-placeholder why-bg" data-src="assets/kublai-portrait.jpg"></div>
-        <div class="why-copy">
-          <p class="why-line reveal">蒙古人征服了中原。</p>
-          <p class="why-line reveal">但征服不等于认可。</p>
-          <p class="why-line reveal">颁布汉法历，是忽必烈对汉族政治逻辑的妥协。</p>
-          <p class="why-line reveal">伊斯兰天文学必须消失，因为它的存在威胁到这个妥协。</p>
-          <p class="why-final reveal gold">知识的生产是共同的。知识的署名权，由权力决定。</p>
-        </div>
-        <a class="next-cue" href="#algebra" aria-label="下一页"></a>
-      </section>
-
-      <section class="scene card-scene" id="algebra" aria-label="代数">
-        <div class="img-placeholder card-bg" data-src="assets/house-of-wisdom.jpg"></div>
-        <div class="card-content reveal">
-          <p class="card-kicker">Algebra</p>
-          <h2 class="arabic gold" lang="ar">الجبر</h2>
-          <div class="word-transfer"><span lang="ar">الجبر</span><i></i><strong>Algebra</strong></div>
-          <p>在巴格达的智慧宫，花拉子米把来自印度、希腊与波斯的算法重新组织为一种可传授的计算语言。后来，这种知识被翻译、迁移、制度化，成为欧洲数学史里更熟悉的词。</p>
-          <p class="disappear-name">花拉子米<span class="strike-line"></span></p>
-        </div>
-        <a class="next-cue" href="#medicine" aria-label="下一页"></a>
-      </section>
-
-      <section class="scene card-scene" id="medicine" aria-label="传统知识，现代专利">
-        <div class="img-placeholder card-bg" data-src="assets/medicine-split.jpg"></div>
-        <div class="card-content reveal">
-          <p class="card-kicker">传统知识，现代专利</p>
-          <h2>谁先知道，谁能署名？</h2>
-          <p>许多药用植物、治疗经验与制备方法，先在地方社群里流传了数百年。进入实验室、论文与专利体系之后，知识被重新命名，原来的讲述者却常常变成脚注之外的人。</p>
-          <p class="disappear-name">传统医者<span class="strike-line"></span></p>
-        </div>
-        <a class="next-cue" href="#maps" aria-label="下一页"></a>
-      </section>
-
-      <section class="scene card-scene" id="maps" aria-label="星图与署名权">
-        <div class="img-placeholder card-bg" data-src="assets/star-map-islamic.jpg"></div>
-        <div class="card-content reveal">
-          <p class="card-kicker">Maps of the Sky</p>
-          <h2>同一片天空，不同的署名</h2>
-          <p>星图、历法、航海表和仪器名，在语言之间移动时，也在权力之间移动。被吸收的知识并不一定被承认；它可能继续工作，却不再拥有自己的名字。</p>
-          <p class="disappear-name">共同作者<span class="strike-line"></span></p>
-        </div>
-        <a class="next-cue" href="#ending" aria-label="下一页"></a>
-      </section>
-
-      <section class="scene ending-scene" id="ending" aria-label="结尾">
-        <div class="img-placeholder ending-map map-one" data-src="assets/star-map-chinese.jpg"></div>
-        <div class="img-placeholder ending-map map-two" data-src="assets/star-map-islamic.jpg"></div>
-        <div class="ending-copy">
-          <div class="typewriter" data-lines="普世知识从来不是中性的。|它是在特定权力结构下，|通过吸收、再署名、然后沉默来生产的。"></div>
-          <p class="final-question">今天，还有谁的名字正在消失？</p>
         </div>
       </section>
     </main>
-    <script src="script.js?v=20260429-3"></script>
+    <script src="script.js?v=20260512-2"></script>
   </body>
 </html>
