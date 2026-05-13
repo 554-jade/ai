@@ -1,9 +1,12 @@
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const languageStorageKey = 'preferred-language';
 
   document.querySelectorAll('.img-placeholder[data-src]').forEach((el) => {
     el.style.setProperty('--image', `url("${el.dataset.src}")`);
   });
+
+  setupLanguageToggle();
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -35,8 +38,8 @@
     .querySelectorAll('.scene, .reveal, .reveal-line, .reveal-side, .scroll-figure')
     .forEach((el) => observer.observe(el));
 
-  setupRevealCards();
   setupPanelNavigation();
+  setupRevealCards();
   setupParallax();
 
   function runLineSequence(section) {
@@ -164,6 +167,82 @@
         goToPanel(currentPanelIndex() - 1);
       }
     });
+  }
+
+  function setupLanguageToggle() {
+    const toggle = document.getElementById('language-toggle');
+    if (!toggle) return;
+
+    const buttons = Array.from(toggle.querySelectorAll('[data-language-option]'));
+    const savedLanguage = window.localStorage.getItem(languageStorageKey);
+    const initialLanguage = savedLanguage === 'en' ? 'en' : 'zh';
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        applyLanguage(button.dataset.languageOption || 'zh');
+      });
+    });
+
+    applyLanguage(initialLanguage);
+  }
+
+  function applyLanguage(language) {
+    const currentLanguage = language === 'en' ? 'en' : 'zh';
+    const suffix = currentLanguage === 'zh' ? 'Zh' : 'En';
+    const title = document.getElementById('page-title');
+
+    document.documentElement.lang = currentLanguage === 'zh' ? 'zh-CN' : 'en';
+    document.body.dataset.language = currentLanguage;
+    window.localStorage.setItem(languageStorageKey, currentLanguage);
+
+    if (title) {
+      title.textContent = title.dataset[`text${suffix}`] || title.textContent;
+      document.title = title.textContent;
+    }
+
+    document.querySelectorAll('[data-text-zh][data-text-en]').forEach((element) => {
+      const value = element.dataset[`text${suffix}`];
+      if (typeof value === 'string') {
+        element.textContent = value;
+      }
+    });
+
+    document.querySelectorAll('[data-html-zh][data-html-en]').forEach((element) => {
+      const value = element.dataset[`html${suffix}`];
+      if (typeof value === 'string') {
+        element.innerHTML = value;
+      }
+    });
+
+    document.querySelectorAll('[data-aria-zh][data-aria-en]').forEach((element) => {
+      const value = element.dataset[`aria${suffix}`];
+      if (typeof value === 'string') {
+        element.setAttribute('aria-label', value);
+      }
+    });
+
+    document.querySelectorAll('#language-toggle [data-language-option]').forEach((button) => {
+      const isActive = button.dataset.languageOption === currentLanguage;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-selected', String(isActive));
+    });
+
+    syncFinalTypewriter(currentLanguage);
+  }
+
+  function syncFinalTypewriter(language) {
+    const section = document.getElementById('final-thesis');
+    const target = section?.querySelector('.typewriter');
+    const finalStatement = section?.querySelector('.final-statement');
+    if (!section || !target) return;
+
+    target.dataset.lines = language === 'zh' ? target.dataset.linesZh || '' : target.dataset.linesEn || '';
+    target.textContent = '';
+    finalStatement?.classList.remove('is-visible');
+    delete section.dataset.played;
+
+    if (!section.classList.contains('is-visible')) return;
+    runTypewriter(section);
   }
 
   function setupRevealCards() {

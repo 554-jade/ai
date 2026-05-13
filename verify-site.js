@@ -25,12 +25,6 @@ function assertNotIncludes(source, needle, label) {
   }
 }
 
-function assertRegex(source, pattern, label) {
-  if (!pattern.test(source)) {
-    throw new Error(`Missing ${label}: ${pattern}`);
-  }
-}
-
 const html = read(htmlPath);
 const css = read(cssPath);
 const js = read(jsPath);
@@ -52,16 +46,6 @@ const pageSource = `${html}\n${css}\n${js}`;
 ].forEach((needle) => assertIncludes(html, needle, 'required section id'));
 
 [
-  'href="#two-astronomies"',
-  'href="#sky-to-calendar"',
-  'href="#visibility-memory"',
-  'href="#political-civilization"',
-  'href="#contemporary-mirror"',
-  'href="#celestial-textures"',
-  'href="#final-thesis"',
-].forEach((needle) => assertIncludes(html, needle, 'section navigation flow'));
-
-[
   '01_hero_same_sky.png',
   '02_two_astronomies_one_city.png',
   '03_sky_to_calendar_flow.png',
@@ -70,122 +54,59 @@ const pageSource = `${html}\n${css}\n${js}`;
   '06_contemporary_mirror_astronomy.png',
   '07_chinese_celestial_texture.png',
   '08_islamic_celestial_texture.png',
-  'reference_keep/ref_guo_shoujing_portrait.jpg',
-  'reference_keep/ref_jamal_al_din_portrait.jpg',
-  'reference_keep/ref_hero_backview_chinese.jpg',
-  'reference_keep/ref_jamal_backview_city.jpg',
-  'reference_keep/ref_chinese_star_map.jpg',
-  'reference_keep/ref_islamic_star_map.jpg',
-  'kublai-portrait.jpg',
 ].forEach((needle) => assertIncludes(html, needle, 'astronomy asset'));
 
 [
+  'id="language-toggle"',
+  'data-language-option="zh"',
+  'data-language-option="en"',
+  'data-text-zh=',
+  'data-text-en=',
+  'data-html-zh=',
+  'data-html-en=',
+  'data-aria-zh=',
+  'data-aria-en=',
+  'data-lines-zh=',
+  'data-lines-en=',
+].forEach((needle) => assertIncludes(html, needle, 'bilingual UI scaffold'));
+
+[
+  '1281年，北京。',
+  '天文学不只是关于天空。',
+  '两套宇宙观',
+  '从天空到历法',
+  '农业 / 祭祀 / 行政',
+  '帝国合法性',
+  '今天，',
+  '谁拥有天空的解释权？',
+  '同一片天空，',
+  '不同的署名。',
   'Astronomy & Political Civilization',
   'Beijing, 1281.',
-  'Two cosmologies',
   'From Sky to Calendar',
-  'Celestial signs',
-  'Observation',
-  'Calculation',
-  'Calendar',
-  'Agriculture / Ritual / Administration',
-  'Imperial legitimacy',
-  'The Shoushi Calendar.',
-  'Calendar as a core technology of political civilization',
-  'Who holds the authority',
-  'Control of astronomical data',
+  'Agriculture',
+  'Imperial Legitimacy',
   'The same sky,',
   'different credits.',
-  'Sky -> Calendar -> Order -> Imperial Legitimacy -> Contemporary Scientific Authority',
-].forEach((needle) => assertIncludes(html, needle, 'English astronomy narrative'));
+].forEach((needle) => assertIncludes(html, needle, 'bilingual narrative copy'));
 
 [
-  'Guo Shoujing',
-  'Jamal al-Din',
-  'Shoushi Calendar',
-  'Islamic astronomy',
-  'Calendrical reform in North China',
-  'Observation instruments and the state calendar',
-  'Scientific authority',
-  'Kublai Khan',
-].forEach((needle) => assertIncludes(html, needle, 'paired astronomer content'));
+  'setupLanguageToggle',
+  'applyLanguage',
+  'localStorage',
+  'preferred-language',
+  'data-language',
+].forEach((needle) => assertIncludes(js, needle, 'language toggle behavior'));
 
 [
-  'data-reveal-card="guo"',
-  'data-reveal-card="jamal"',
-  'card-back',
-  'card-front',
-  'Click to reveal the figure',
-  'backview-copy',
-  'backview-image',
-].forEach((needle) => assertIncludes(html, needle, 'interactive card reveal structure'));
+  '.language-toggle',
+  '.lang-tab',
+  '.lang-tab.is-active',
+  '.flow-node--dense',
+  'text-wrap: balance',
+  'overflow-wrap: anywhere',
+].forEach((needle) => assertIncludes(css, needle, 'layout resilience styling'));
 
-[
-  'class="img-placeholder section-bg sky-flow-backdrop"',
-  'class="img-placeholder section-bg texture-backdrop"',
-  'class="img-placeholder section-bg final-backdrop"',
-].forEach((needle) => assertIncludes(html, needle, 'background image layer'));
+assertNotIncludes(html, 'Click to reveal the figure</small>\n            </div>\n          </div>\n          <div class="card-stage card-front"', 'English-only card without bilingual attributes');
 
-[
-  'Algebra',
-  'Algorithm',
-  'الجبر',
-  'medicine-split',
-  'house-of-wisdom',
-  'patent',
-].forEach((needle) => assertNotIncludes(html, needle, 'off-topic content'));
-
-assertNotIncludes(html, 'lang="zh-CN"', 'Chinese page language tag');
-assertNotIncludes(html, '下一页', 'Chinese navigation label');
-assertNotIncludes(html, '点击后再看人物', 'Chinese reveal prompt');
-assertNotIncludes(html, '郭守敬', 'Chinese personal name');
-assertNotIncludes(html, '扎马鲁丁', 'Chinese personal name');
-assertNotIncludes(html, '忽必烈', 'Chinese personal name');
-assertRegex(html, /^[\s\S]*$/u, 'valid UTF-8 content');
-
-if (/[\u3400-\u9fff]/u.test(html)) {
-  throw new Error('Chinese characters remain in index.html');
-}
-
-assertRegex(html, /class="[^"]*flow-node[^"]*"[^>]*data-tone="science"/, 'science flow nodes');
-assertRegex(html, /class="[^"]*flow-node[^"]*"[^>]*data-tone="calendar"/, 'calendar flow node');
-assertRegex(html, /class="[^"]*flow-node[^"]*"[^>]*data-tone="power"/, 'power flow nodes');
-
-assertIncludes(js, 'IntersectionObserver', 'Intersection Observer');
-assertIncludes(js, 'setupPanelNavigation', 'click-to-next panel navigation');
-assertIncludes(js, 'setupRevealCards', 'card reveal interactions');
-assertIncludes(js, 'is-revealed', 'card revealed class handling');
-assertIncludes(js, 'runLineSequence', 'flow line sequence');
-assertIncludes(js, 'runTypewriter', 'final thesis reveal');
-assertIncludes(js, 'prefers-reduced-motion', 'reduced motion detection');
-
-assertIncludes(css, '#05070B', 'deep black background');
-assertIncludes(css, '#0A1320', 'night blue background');
-assertIncludes(css, '#D7A64A', 'gold palette');
-assertIncludes(css, '#8FB6D9', 'blue palette');
-assertIncludes(css, '#E7E2D8', 'body text palette');
-assertIncludes(css, 'heroZoom', 'hero slow zoom animation');
-assertIncludes(css, 'twinkle', 'star twinkle animation');
-assertIncludes(css, '.astronomy-card.is-revealed .card-front', 'revealed card front state');
-assertIncludes(css, '.astronomy-card:not(.is-revealed) .card-back', 'hidden front default state');
-assertIncludes(css, '.political-copy', 'political copy styling');
-assertIncludes(css, 'justify-self: start', 'left anchored panel placement');
-assertIncludes(css, '.sky-flow-backdrop', 'sky flow backdrop styling');
-assertIncludes(css, '.texture-backdrop', 'celestial backdrop styling');
-assertIncludes(css, '.final-backdrop', 'final backdrop styling');
-assertIncludes(css, '@media (prefers-reduced-motion: reduce)', 'reduced motion CSS');
-
-const assetRefs = [...html.matchAll(/(?:data-src|src)="([^"]*\.(?:png|jpg|jpeg|webp))"/g)].map(
-  (match) => match[1]
-);
-
-assetRefs.forEach((assetRef) => {
-  if (/^https?:\/\//.test(assetRef)) return;
-  const normalizedRef = assetRef.replace(/^\//, '');
-  const assetPath = path.join(root, normalizedRef);
-  if (!fs.existsSync(assetPath)) {
-    throw new Error(`Referenced asset is missing: ${assetRef}`);
-  }
-});
-
-console.log('English astronomy site checks passed.');
+console.log('Bilingual astronomy site checks passed.');

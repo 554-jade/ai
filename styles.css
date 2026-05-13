@@ -33,6 +33,48 @@ body {
   font-family: "Inter", "Noto Serif SC", sans-serif;
 }
 
+.language-toggle {
+  position: fixed;
+  top: clamp(16px, 3vh, 28px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 140;
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(143, 182, 217, 0.28);
+  border-radius: 999px;
+  background: rgba(5, 7, 11, 0.68);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(16px);
+}
+
+.lang-tab {
+  min-width: 58px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(231, 226, 216, 0.78);
+  font-family: "Inter", "Noto Serif SC", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: background-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
+}
+
+.lang-tab:hover,
+.lang-tab:focus-visible {
+  color: var(--text);
+  outline: none;
+}
+
+.lang-tab.is-active {
+  background: linear-gradient(180deg, rgba(215, 166, 74, 0.2), rgba(215, 166, 74, 0.28));
+  color: var(--gold-light);
+  box-shadow: inset 0 0 0 1px rgba(242, 198, 109, 0.28);
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -587,9 +629,9 @@ figcaption {
   position: relative;
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(8px, 1.5vw, 18px);
-  width: min(1180px, 100%);
+  grid-template-columns: repeat(6, minmax(150px, 1fr));
+  gap: clamp(8px, 1vw, 14px);
+  width: min(1360px, 100%);
   margin: 0 auto;
   padding: 0;
   list-style: none;
@@ -597,12 +639,12 @@ figcaption {
 
 .flow-node {
   position: relative;
-  min-height: 128px;
+  min-height: 142px;
   display: grid;
   align-content: center;
   justify-items: center;
   gap: 0.45rem;
-  padding: 18px 12px;
+  padding: 18px 10px;
   border: 1px solid rgba(143, 182, 217, 0.28);
   border-radius: 8px;
   background: rgba(5, 7, 11, 0.52);
@@ -632,13 +674,23 @@ figcaption {
 }
 
 .flow-node strong {
-  font-size: clamp(1.05rem, 1.7vw, 1.55rem);
+  display: block;
+  width: 100%;
+  font-size: clamp(0.96rem, 1.3vw, 1.34rem);
+  line-height: 1.08;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .flow-node span {
   color: var(--muted);
-  font-size: clamp(0.68rem, 0.85vw, 0.84rem);
+  font-size: clamp(0.72rem, 0.82vw, 0.84rem);
   line-height: 1.35;
+  text-wrap: balance;
+}
+
+.flow-node--dense strong {
+  font-size: clamp(0.84rem, 1.08vw, 1.14rem);
 }
 
 .flow-node[data-tone="science"] {
@@ -1360,6 +1412,18 @@ figcaption {
   .next-cue {
     width: 40px;
     height: 40px;
+  }
+
+  .language-toggle {
+    top: 12px;
+    right: 12px;
+    padding: 3px;
+  }
+
+  .lang-tab {
+    min-width: 52px;
+    padding: 7px 12px;
+    font-size: 0.82rem;
   }
 }
 
